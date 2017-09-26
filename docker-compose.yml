@@ -7,21 +7,28 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - pushmyshop
   pushmyshop-api:
     image: pushmyshop/pushmyshop-api:latest
     container_name: pushmyshop-api
     privileged: true
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /tmp/pushmyshop:/tmp/pushmyshop
     expose:
       - 8080
+    networks:
+      - pushmyshop
     environment:
       - VIRTUAL_HOST=api.pushmyshop.com
   pushmyshop-market:
     image: pushmyshop/pushmyshop-market:latest
     container_name: pushmyshop-market
-    expose:
-      - 8080
+    networks:
+      - pushmyshop
     environment:
       - VIRTUAL_HOST=pushmyshop.com
+
+networks:
+  pushmyshop:
