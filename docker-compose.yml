@@ -10,7 +10,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/nginx/vhost.d
       - /usr/share/nginx/html
-      - /Users/luya/Workspace/pushmyshop-docker/certs:/etc/nginx/certs:ro
+      - /home/ec2-user/pushmyshop-docker/certs:/etc/nginx/certs:ro
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
     networks:
@@ -19,7 +19,7 @@ services:
     image: jrcs/letsencrypt-nginx-proxy-companion
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /Users/luya/Workspace/pushmyshop-docker/certs:/etc/nginx/certs:rw
+      - /home/ec2-user/pushmyshop-docker/certs:/etc/nginx/certs:rw
     volumes_from:
       - nginx-proxy
   pushmyshop-api:
@@ -33,10 +33,6 @@ services:
       - 8080
     networks:
       - pushmyshop
-    environment:
-      - VIRTUAL_HOST=api.pushmyshop.com
-      - LETSENCRYPT_HOST=api.pushmyshop.com      
-      - LETSENCRYPT_EMAIL=contact.pushmyshop@gmail.com
   pushmyshop-market:
     image: pushmyshop/pushmyshop-market:latest
     container_name: pushmyshop-market
@@ -46,6 +42,5 @@ services:
       - VIRTUAL_HOST=pushmyshop.com
       - LETSENCRYPT_HOST=pushmyshop.com
       - LETSENCRYPT_EMAIL=contact.pushmyshop@gmail.com
-
 networks:
   pushmyshop:
