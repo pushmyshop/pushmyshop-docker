@@ -25,14 +25,21 @@ services:
   pushmyshop-api:
     image: pushmyshop/pushmyshop-api:latest
     container_name: pushmyshop-api
-    privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /tmp/pushmyshop:/tmp/pushmyshop
+      - /home/ec2-user/pushmyshop-docker/.aws:/home/pushmyshop/.aws
     expose:
       - 8080
     networks:
       - pushmyshop
+    environment:
+      - PROFILE=prod
+      - DB_PORT=${DB_PORT}
+      - DB_IP=${DB_IP}
+      - DB_NAME=${DB_NAME}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
   pushmyshop-market:
     image: pushmyshop/pushmyshop-market:latest
     container_name: pushmyshop-market
