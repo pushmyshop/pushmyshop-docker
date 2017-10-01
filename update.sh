@@ -1,3 +1,3 @@
 cd /home/ec2-user/pushmyshop-docker;
-docker-compose pull;
-docker-compose up -d;
+/usr/local/bin/docker-compose/docker-compose pull;
+/usr/local/bin/docker-compose/docker-compose up -d;
